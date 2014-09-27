@@ -1,0 +1,11 @@
+{
+  "name": "stream-adventure",
+  "version": "0.0.0",
+  "description": "learning challenges",
+  "main": "beebboop.js",
+  "scripts": {
+    "test": "stream-adventure run"
+  },
+  "author": "",
+  "license": "BSD-2-Clause"
+}
