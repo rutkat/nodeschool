@@ -2,7 +2,7 @@
   "name": "node-example",
   "version": "0.0.2",
   "dependencies": {
-    "mongodb": "2.6.4",
+    "mongodb": "2.6.4"
   },
   "engines": {
     "node": ">=0.6.x"
@@ -11,7 +11,7 @@
     "start": "node server.js"
   },
   "description": "",
-  "main": "helloworld.js",
+  "main": "mb-server.js",
   "devDependencies": {},
   "repository": {
   },
