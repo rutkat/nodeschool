@@ -1,37 +1,47 @@
 var http  = require('http'),
     util  = require('util'),
     querystring = require('querystring'),
-    port = process.env.PORT || 1337,
+    port = process.env.PORT || 5000,
+    mongo = require('mongodb')
+    host  = process.env.MONGOHQ_URL || "mongodb://@127.0.0.1:27017/twitter-clone",
     messages = []
+
+
+function serve(err, client) {
  
-exports.server = http.createServer( function (req, res) {
+ if (err) throw err;
+
+ var collection = new mongo.Collection( client, 'messages' )
+
+ var app = http.createServer( function (req, res) {
+  //exports.server = http.createServer( function (req, res) {
 
   if (req.method === "POST" && req.url === "/messages/create.json")
   {
-    var message = ''
-    req.on('data', function(data, message) {
-	console.log( data.toString('utf-8') )
-  	message = exports.addMessage( data.toString('utf-8') )
+    req.on('data', function(data) {
+	collection.insert(
+	  querystring.parse(data.toString('utf-8')),
+	  {safe:true},
+	  function(err, obj) {
+	    if (err) throw err
+	    res.end( JSON.stringify(obj) )
+	    console.log(util.inspect(obj) )
+	  }
+	)
     })
-    console.log(util.inspect(message, true, null) )
-    console.log(util.inspect(messages, true, null) )
 
-    res.writeHead(200, {
-	'Content-Type': 'text/plain'
-    })
-
-    res.end(message)
   }
 
   if (req.method === "GET" && req.url === "/messages/list.json") 
   {
-    var body = exports.getMessages()
+    //var body = exports.getMessages()
  
-    res.writeHead(200, {
-      'Content-Length': body.length,
-      'Content-Type': 'text/plain'
+    collection.find().toArray( function(err, results) {
+      res.writeHead(200, { 'Content-Type':'text/plain' })
+      console.dir(results)
+      res.end(JSON.stringify(results))
     })
-    res.end(body)
+
   }
   else
   {
@@ -42,25 +52,12 @@ exports.server = http.createServer( function (req, res) {
   }
  
   console.log(req.method)
-
-}).listen(port)
-
-//console.log('Server running at http://127.0.0.1:%s', port)
-
-
-exports.getMessages = function() {
-  return JSON.stringify(messages)
+  }).listen(port)
 }
 
-exports.addMessage = function(data) {
-  messages.push( querystring.parse(data) )
-  return JSON.stringify( querystring.parse(data) )
-}
+// Make the connetion and serve
+mongo.Db.connect(host, serve )
 
-var messages = []
-// first message example
-messages.push({
-  "name":"John",
-  "message":"hi"
-})
+console.log('Server running at http://127.0.0.1:%s', port)
+
 
