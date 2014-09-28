@@ -8,7 +8,7 @@
     "node": ">=0.6.x"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node mb-server.js"
   },
   "description": "",
   "main": "mb-server.js",
