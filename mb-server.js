@@ -1,7 +1,7 @@
 var http  = require('http'),
     util  = require('util'),
     querystring = require('querystring'),
-    port = 1337
+    port = process.env.PORT || 1337
 
 exports.server = http.createServer( function (req, res) {
 
@@ -42,9 +42,9 @@ exports.server = http.createServer( function (req, res) {
  
   console.log(req.method)
 
-}).listen(port, "127.0.0.1")
+}).listen(port)
 
-console.log('Server running at http://127.0.0.1:%s', port)
+//console.log('Server running at http://127.0.0.1:%s', port)
 
 
 exports.getMessages = function() {
