@@ -14,8 +14,6 @@
   "main": "helloworld.js",
   "devDependencies": {},
   "repository": {
-    "type": "git",
-    "url": "https://github.com/rutkat/nodeschool.git"
   },
   "author": "",
   "license": "BSD-2-Clause",
