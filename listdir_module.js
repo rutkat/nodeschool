@@ -2,18 +2,24 @@ var fs = require('fs'),
     path = require('path'),
     contents = []
 
-module.exports = fs.readdir(pathname, function(err, files, ext) {
+module.exports = function(files, ext, callback) {
 
-  if (err) throw new Error
+  fs.readdir(files, function(err, files) {
 
-  for (var i = 0; i < files.length; i++) {
+    if (err) return callback(err)
 
-    if(path.extname(files[i]) === '.' + ext)
-    {
-      contents.push(files[i])
+    for (var i = 0; i < files.length; i++) {
+
+      if(path.extname(files[i]) === '.' + ext)
+      {
+        contents.push(files[i])
+      }
+
     }
 
-  }
-  return contents
-})
+    if (callback) {
+	return callback(null, contents)
+    }
+  })
 
+}
