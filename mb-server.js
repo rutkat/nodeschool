@@ -18,6 +18,7 @@ function serve(err, client) {
 
   if (req.method === "POST" && req.url === "/messages/create.json")
   {
+
     req.on('data', function(data) {
 	collection.insert(
 	  querystring.parse(data.toString('utf-8')),
@@ -32,9 +33,8 @@ function serve(err, client) {
 
   }
 
-  if (req.method === "GET" && req.url === "/messages/list.json") 
+  else if (req.method === "GET" && req.url === "/messages/list.json") 
   {
-    //var body = exports.getMessages()
  
     collection.find().toArray( function(err, results) {
       res.writeHead(200, { 'Content-Type':'text/plain' })

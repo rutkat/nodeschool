@@ -12,9 +12,10 @@
   },
   "description": "",
   "main": "mb-server.js",
-  "devDependencies": {},
-  "repository": {
+  "devDependencies": {
+    "mocha": "~1.18.2"
   },
+  "repository": {},
   "author": "",
   "license": "BSD-2-Clause",
   "bugs": {
