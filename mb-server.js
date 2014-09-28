@@ -1,8 +1,9 @@
 var http  = require('http'),
     util  = require('util'),
     querystring = require('querystring'),
-    port = process.env.PORT || 1337
-
+    port = process.env.PORT || 1337,
+    messages = []
+ 
 exports.server = http.createServer( function (req, res) {
 
   if (req.method === "POST" && req.url === "/messages/create.json")
