@@ -5,11 +5,12 @@
   <title>Intro to AngularJS by Tom Rutka</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script type="text/javascript" src="js/angular.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
-<!--
-	<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
-	<link href='css/main.css' rel='stylesheet' type='text/css'>
--->
+	<script type="text/javascript" src="js/app-final.js"></script>
+  <style>
+  .ng-dirty {
+    border-color: yellow;
+  }
+  </style>
 </head>
 <body ng-controller="MainCtrl">
 	<div id="home">
@@ -19,7 +20,7 @@
         <input type="text" ng-model="myName"/>
       </label>
       <label for="myMsg">Message:
-        <input type="text" ng-model="myMsg" />
+        <input type="text" ng-model="myMsg" ng-minlength="5" />
       </label>
       <input value="Post" type="submit"/>
     </form>
